@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Library"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Library.BookWindow"
+        Title="Books in Library"
+        x:DataType="local:BookWindow"
+        Background="#2E2E2E" Foreground="White">
+
+	<Window.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Margin" Value="0,0,0,5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="Background" Value="#007ACC"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<!-- Header Section -->
+		<StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+			<TextBlock Text="Books in Library" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+		</StackPanel>
+
+		<!-- User's Books -->
+		<ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+			<StackPanel Margin="10">
+				<TextBlock Text="User's Books:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+				<ListBox x:Name="UserBooksListBox" ItemsSource="{Binding UserBooks}" BorderBrush="Gray" BorderThickness="1">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10" Background="#3C3C3C">
+								<StackPanel>
+									<TextBlock Text="{Binding Title, StringFormat='Title: {0}'}"/>
+									<TextBlock Text="{Binding Author, StringFormat='Author: {0}'}"/>
+									<TextBlock Text="{Binding Category.Name, StringFormat='Category: {0}'}"/>
+									<ListBox ItemsSource="{Binding CheckOuts}" Margin="0">
+										<ListBox.ItemTemplate>
+											<DataTemplate>
+												<StackPanel>
+													<TextBlock Text="{Binding CheckOutDate, StringFormat='Check out date: {0:d}'}"/>
+													<TextBlock Text="{Binding DueDate, StringFormat='Due date: {0:d}'}"/>
+													<TextBlock Text="{Binding DaysDifference, StringFormat='Days left: {0}'}"/>
+													<TextBlock Text="{Binding Penalty, StringFormat='Penalty: {0} zł'}"/>
+												</StackPanel>
+											</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+								</StackPanel>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</ScrollViewer>
+
+		<!-- Available Books and Controls -->
+		<StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
+			<TextBlock Text="Search and Actions:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+			<TextBox x:Name="SearchUserTextBox" Watermark="Search..." KeyUp="SearchBooksTextBox_KeyUp" Margin="0,0,0,10" Background="#3C3C3C"/>
+			<ComboBox x:Name="SortOptionComboBox" SelectionChanged="SortOptionComboBox_SelectionChanged" Margin="0,0,0,10" Background="#3C3C3C"/>
+			<ComboBox x:Name="SortMethodComboBox" SelectionChanged="SortOptionComboBox_SelectionChanged" Margin="0,0,0,10" Background="#3C3C3C"/>
+			<Button Content="Settings" Click="SettingsButton_Click"/>
+			<Button Content="Logout" Click="LogoutButton_Click"/>
+			<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,20,0,0">
+				<StackPanel>
+					<TextBlock Text="Available Books:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+					<ListBox x:Name="AvailableBooksListBox" ItemsSource="{Binding AvailableBooks}" BorderBrush="Gray" BorderThickness="1">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10" Background="#3C3C3C">
+									<StackPanel>
+										<TextBlock Text="{Binding Title, StringFormat='Title: {0}'}"/>
+										<TextBlock Text="{Binding Author, StringFormat='Author: {0}'}"/>
+										<TextBlock Text="{Binding Category.Name, StringFormat='Category: {0}'}"/>
+										<Button Content="Check out new book" Click="AddBookButton_Click"/>
+									</StackPanel>
+								</Border>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</StackPanel>
+			</ScrollViewer>
+		</StackPanel>
+	</Grid>
+</Window>

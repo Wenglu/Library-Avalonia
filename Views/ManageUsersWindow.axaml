@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+        x:Class="Library.ManageUsersWindow"
+        xmlns:local="clr-namespace:Library"
+        x:DataType="local:ManageUsersWindow"
+        xmlns:converters="clr-namespace:Library.Converters"
+        Title="Manage Users"
+        Icon="/Assets/bookicon.ico">
+
+	<Window.Resources>
+		<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+		<converters:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+
+		<!-- Szary panel po lewej stronie -->
+		<StackPanel Grid.Column="0" Margin="10" Background="#2E2E2E" Width="100">
+			<TextBox x:Name="SearchUserTextBox" Margin="0 5" Watermark="Search by username or id..." KeyUp="SearchBooksTextBox_KeyUp" Background="#3C3C3C" Foreground="White"/>
+			<ComboBox x:Name="SortOptionComboBox" Margin="0 5" SelectionChanged="SortOptionComboBox_SelectionChanged" Background="#3C3C3C" Foreground="White"/>
+			<ComboBox x:Name="SortMethodComboBox" Margin="0 5" SelectionChanged="SortOptionComboBox_SelectionChanged" Background="#3C3C3C" Foreground="White"/>
+			<Button x:Name="AddUserButton" Content="Add user" Margin="5" Click="AddUserButton_Click" Background="#007ACC" Foreground="White"/>
+			<Button x:Name="BackButton" Content="Back" Margin="5" Click="BackButton_Click" Background="#007ACC" Foreground="White"/>
+		</StackPanel>
+
+		<!-- Czarny panel na dole -->
+		<ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">
+			<StackPanel>
+				<TextBlock Text="Users:" Margin="0 0 0 10" Foreground="White"/>
+				<ListBox x:Name="UsersListBox" ItemsSource="{Binding Users}" Margin="0 5">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Margin="10" Text="{Binding Username}" Foreground="White"/>
+									<TextBlock Margin="10" Text="{Binding EmailAddress}" Foreground="White"/>
+									<TextBlock Margin="10" Text="{Binding PhoneNumber}" Foreground="White"/>
+									<TextBlock Margin="10" Text="{Binding Role}" Foreground="White"/>
+									<StackPanel Orientation="Horizontal">
+										<Button x:Name="MakeAdminButton" Content="Make admin" Margin="5" Click="MakeAdminButton_Click" IsVisible="{Binding IsAdmin, Converter={StaticResource InverseBoolToVisibilityConverter}}" Background="#007ACC" Foreground="White"/>
+										<Button x:Name="MakeUserButton" Content="Make User" Margin="5" Click="MakeUserButton_Click" IsVisible="{Binding IsAdmin, Converter={StaticResource BoolToVisibilityConverter}}" Background="#007ACC" Foreground="White"/>
+										<Button x:Name="DeleteUserButton" Content="Delete user" Margin="5" Click="DeleteUserButton_Click" IsVisible="{Binding IsAdmin, Converter={StaticResource InverseBoolToVisibilityConverter}}" Background="#007ACC" Foreground="White"/>
+									</StackPanel>
+								</StackPanel>
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Window>

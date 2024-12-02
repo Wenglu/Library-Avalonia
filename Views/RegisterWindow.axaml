@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Library.RegisterWindow"
+        Title="Register"
+        Icon="/Assets/bookicon.ico"
+		Width="400"
+		Height="400"
+		Background="#303030">
+
+	<Grid Margin="20">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock Grid.Column="0" Grid.Row="0" Margin="10" Text="Username:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="0" Margin="10" x:Name="UsernameTextBox" Width="200"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="1" Margin="10" Text="Password:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="1" Margin="10" x:Name="PasswordBox1" PasswordChar="●" Width="200"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="2" Margin="10" Text="Confirm Password:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="2" Margin="10" x:Name="PasswordBox2" PasswordChar="●" Width="200"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="3" Margin="10" Text="Email:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="3" Margin="10" x:Name="EmailTextBox" Width="200"/>
+
+		<TextBlock Grid.Column="0" Grid.Row="4" Margin="10" Text="Phone Number:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="1" Grid.Row="4" Margin="10" x:Name="PhoneNumberTextBox" Width="200"/>
+
+		<Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="10" Content="Register" x:Name="RegisterButton" IsEnabled="False" Click="Register_Click" HorizontalAlignment="Center" Width="200"/>
+	</Grid>
+</Window>

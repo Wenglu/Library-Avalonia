@@ -1,0 +1,66 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+        x:Class="Library.EditBookWindow"
+        Title="Edit Book"
+        Width="600" Height="400"
+        WindowStartupLocation="CenterScreen"
+        Background="#2E2E2E" Foreground="White">
+
+	<Window.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="Margin" Value="0 0 0 10"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="Margin" Value="0 0 0 10"/>
+			<Setter Property="Padding" Value="5"/>
+			<Setter Property="Width" Value="300"/>
+			<Setter Property="Background" Value="#3C3C3C"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="ComboBox">
+			<Setter Property="Margin" Value="0 0 0 10"/>
+			<Setter Property="Padding" Value="5"/>
+			<Setter Property="Width" Value="300"/>
+			<Setter Property="Background" Value="#3C3C3C"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Margin" Value="0 10 0 0"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="Width" Value="250"/>
+			<Setter Property="Background" Value="#007ACC"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Row="0" Margin="10">
+			<TextBlock Text="Title:" HorizontalAlignment="Center"/>
+			<TextBox x:Name="TitleTextBox" HorizontalAlignment="Center"/>
+			<TextBlock Text="Author:" Margin="0 10 0 10" HorizontalAlignment="Center"/>
+			<TextBox x:Name="AuthorTextBox" HorizontalAlignment="Center"/>
+			<ComboBox x:Name="CategoryComboBox" Margin="0 10 0 10" HorizontalAlignment="Center"/>
+			<Button Content="Back" x:Name="BackButton" Click="BackButton_Click"/>
+			<Button Content="Edit" x:Name="EditButton" IsEnabled="False" Click="EditButton_Click"/>
+		</StackPanel>
+	</Grid>
+</Window>

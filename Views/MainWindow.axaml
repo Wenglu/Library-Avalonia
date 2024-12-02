@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Library.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Library.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Bielsko-Biała University Library App"
+		Width="800"
+		Height="400"
+		Background="#303030">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Grid Margin="20">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Label Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" Margin="10" Content="Login or Create Account" FontSize="24" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+		<Label Grid.Column="1" Grid.Row="1" Margin="10" Content="Username (Min: 8 char)" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="2" Grid.Row="1" Margin="10" x:Name="UsernameTextBox" Width="200"/>
+
+		<Label Grid.Column="1" Grid.Row="2" Margin="10" Content="Password (Min: 8 char)" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBox Grid.Column="2" Grid.Row="2" Margin="10" x:Name="PasswordTextBox" PasswordChar="●" Width="200"/>
+
+		<StackPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Margin="10" Content="Register" x:Name="RegisterButton" Click="Register_Click" Width="100" Height="30"/>
+			<Button Margin="10" Content="Login" x:Name="LoginButton" IsEnabled="False" Click="Login_ClickAsync" Width="100" Height="30"/>
+		</StackPanel>
+	</Grid>
+</Window>

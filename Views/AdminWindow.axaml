@@ -1,0 +1,132 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Library.AdminWindow"
+        xmlns:local="clr-namespace:Library"
+        x:DataType="local:AdminWindow"
+        Title="Admin Panel"
+        Background="#2E2E2E" Foreground="White">
+
+	<Window.Styles>
+		<Style Selector="TextBlock">
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Margin" Value="0,0,0,5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="Margin" Value="5"/>
+			<Setter Property="Padding" Value="10"/>
+			<Setter Property="Background" Value="#007ACC"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="ComboBox">
+			<Setter Property="Background" Value="#3C3C3C"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="Background" Value="#3C3C3C"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+	</Window.Styles>
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="3*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<!-- Header Section -->
+		<StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+			<TextBlock Text="Admin Panel" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+		</StackPanel>
+
+		<!-- Available Books Section -->
+		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="0" Margin="10">
+			<StackPanel>
+				<TextBlock Text="Available Books:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+				<ListBox x:Name="AvailableBooksListBox" ItemsSource="{Binding AvailableBooks}" BorderBrush="Gray" BorderThickness="1">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10" Background="#3C3C3C">
+								<StackPanel>
+									<TextBlock TextWrapping="Wrap">
+										<Run Text="{Binding Title}" FontWeight="Bold"/>
+										<Run Text=" by "/>
+										<Run Text="{Binding Author}"/>
+									</TextBlock>
+									<TextBlock Text="{Binding Category, StringFormat='Category: {0}'}"/>
+									<StackPanel Orientation="Horizontal">
+										<Button Content="Edit" Margin="5" Click="EditBook_Click"/>
+										<Button Content="Delete" Margin="5" Click="DeleteBook_Click"/>
+									</StackPanel>
+								</StackPanel>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</ScrollViewer>
+
+		<!-- Users and Books Section -->
+		<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Row="1" Grid.Column="1" Margin="10">
+			<StackPanel>
+				<TextBlock Text="Users and Books:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+				<ListBox x:Name="UsersDataGrid" ItemsSource="{Binding UsersWithBooks}" BorderBrush="Gray" BorderThickness="1">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10" Background="#3C3C3C">
+								<StackPanel>
+									<TextBlock Text="{Binding UserName, StringFormat='Username: {0}'}" Margin="10"/>
+									<TextBlock Text="{Binding Email, StringFormat='Email: {0}'}" Margin="10"/>
+									<TextBlock Text="{Binding PhoneNumber, StringFormat='Phone Number: {0}'}" Margin="10"/>
+									<ListBox ItemsSource="{Binding Books}">
+										<ListBox.ItemTemplate>
+											<DataTemplate>
+												<StackPanel>
+													<TextBlock TextWrapping="Wrap">
+														<Run Text="{Binding Title}" FontWeight="Bold"/>
+														<Run Text=" by "/>
+														<Run Text="{Binding Author}"/>
+													</TextBlock>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Category, StringFormat='Category: {0}'}"/>
+													<TextBlock TextWrapping="Wrap" Text="{Binding CheckOutDate, StringFormat='Check out date: {0}'}"/>
+													<TextBlock TextWrapping="Wrap" Text="{Binding DueDate, StringFormat='Due date: {0}'}"/>
+													<TextBlock TextWrapping="Wrap" Text="{Binding DaysLeft, StringFormat='Days left: {0}'}"/>
+													<TextBlock TextWrapping="Wrap" Text="{Binding Penalty, StringFormat='Penalty: {0} zł'}"/>
+													<StackPanel Orientation="Horizontal">
+														<Button Content="Delete" Margin="5" Click="DeleteUserBook_Click"/>
+													</StackPanel>
+												</StackPanel>
+											</DataTemplate>
+										</ListBox.ItemTemplate>
+									</ListBox>
+								</StackPanel>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</ScrollViewer>
+
+		<!-- Controls Section -->
+		<StackPanel Grid.Row="1" Grid.Column="2" Margin="10">
+			<TextBlock Text="Search:" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+			<TextBox x:Name="SearchTextBox" Watermark="Search..." KeyUp="SearchBooksTextBox_KeyUp" Margin="0,0,0,10"/>
+			<ComboBox x:Name="SortOptionComboBox" SelectionChanged="SortOptionComboBox_SelectionChanged" Margin="0,0,0,10"/>
+			<ComboBox x:Name="SortMethodComboBox" SelectionChanged="SortOptionComboBox_SelectionChanged" Margin="0,0,0,10"/>
+			<Button Content="Add new" Click="AddNewItemButton_Click"/>
+			<Button Content="Manage Users" Click="ManageUsersButton_Click"/>
+			<Button Content="Settings" Click="SettingsButton_Click"/>
+			<Button Content="Logout" Click="BackButton_Click"/>
+		</StackPanel>
+	</Grid>
+</Window>
